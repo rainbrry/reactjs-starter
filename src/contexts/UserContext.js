@@ -6,7 +6,10 @@ export const UserProvider = ({ children }) => {
 	const [users, setUsers] = useState([]);
 
 	const getUsers = async () => {
-		await axios.get("users").then((res) => setUsers(res.data));
+		await axios
+			.get("users")
+			.then((res) => setUsers(res.data))
+			.catch((err) => console.log(err));
 	};
 
 	useEffect(() => {
@@ -14,7 +17,7 @@ export const UserProvider = ({ children }) => {
 	}, []);
 
 	return (
-		<UserContext.Provider value={{ users, setUsers }}>
+		<UserContext.Provider value={{ users, setUsers, getUsers }}>
 			{children}
 		</UserContext.Provider>
 	);

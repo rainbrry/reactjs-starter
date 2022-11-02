@@ -1,21 +1,26 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import { UserContext } from "../../../contexts/UserContext";
 import Modal from "../../components/Modal";
+import toast from "react-hot-toast";
 
 export default function EditUser({ user }) {
 	const [openModal, setOpenModal] = useState(false);
+
+	const { getUsers } = useContext(UserContext);
 
 	const { register, handleSubmit, setValue, reset } = useForm();
 	const update = async (data) => {
 		await axios
 			.patch(`user/${user._id}`, data)
 			.then((res) => {
+				getUsers();
 				reset();
 				setOpenModal(!openModal);
-				console.log(res.data.message);
+				toast.success(res.data.message);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => toast.error(err.message));
 	};
 
 	return (
@@ -40,7 +45,6 @@ export default function EditUser({ user }) {
 						<input
 							type="text"
 							name="fullname"
-							id="fullname"
 							className="w-full px-4 py-1.5 rounded-md border border-gray-300 outline-none focus:border-cyan-500"
 							placeholder="Fullname"
 							defaultValue={user.fullname}
@@ -55,7 +59,6 @@ export default function EditUser({ user }) {
 						<input
 							type="text"
 							name="username"
-							id="username"
 							className="w-full px-4 py-1.5 rounded-md border border-gray-300 outline-none focus:border-cyan-500"
 							placeholder="Username"
 							defaultValue={user.username}
@@ -69,7 +72,6 @@ export default function EditUser({ user }) {
 						</label>
 						<select
 							name="role"
-							id="role"
 							className="w-full px-4 py-1.5 rounded-md border border-gray-300 outline-none focus:border-cyan-500 bg-white"
 							defaultValue={user.role}
 							onChange={(e) => setValue("role", e.target.value)}

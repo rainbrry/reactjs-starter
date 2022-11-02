@@ -1,21 +1,26 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import { UserContext } from "../../../contexts/UserContext";
 import Modal from "../../components/Modal";
+import toast from "react-hot-toast";
 
 export default function AddUser() {
 	const [openModal, setOpenModal] = useState(false);
+
+	const { users, setUsers } = useContext(UserContext);
 
 	const { register, handleSubmit, reset } = useForm();
 	const store = async (data) => {
 		await axios
 			.post("user", data)
 			.then((res) => {
+				setUsers([...users, res.data.data]);
 				reset();
 				setOpenModal(!openModal);
-				console.log(res.data.message);
+				toast.success(res.data.message);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => toast.error(err.message));
 	};
 
 	return (

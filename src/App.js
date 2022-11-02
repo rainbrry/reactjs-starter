@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "./contexts/AuthContext";
 import Router from "./routes/app.routes";
-
+import { Toaster } from "react-hot-toast";
 export default function App() {
 	const [mounted, setMounted] = useState(false);
 	const { setAuth, setIsLogin } = useContext(AuthContext);
@@ -106,6 +106,13 @@ export default function App() {
 	return (
 		<main className="flex h-screen overflow-hidden bg-base-300">
 			<Router />
+			<Toaster
+				position="top-center"
+				reverseOrder={false}
+				containerStyle={{
+					top: 80,
+				}}
+			/>
 		</main>
 	);
 }

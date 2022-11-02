@@ -1,21 +1,23 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Confirm from "../../components/Confirm";
+import { UserContext } from "../../../contexts/UserContext";
+import toast from "react-hot-toast";
 
 export default function DeleteUser({ id }) {
 	const [openModal, setOpenModal] = useState(false);
 
-	const [users, setUsers] = useState([]);
+	const { setUsers } = useContext(UserContext);
 
 	const destroy = async (id) => {
 		await axios
 			.delete(`user/${id}`)
 			.then((res) => {
-				setUsers((user) => user.filter((res) => res._id !== user._id));
+				setUsers((user) => user.filter((res) => res._id !== id));
 				setOpenModal(!openModal);
-				console.log(res.data.message);
+				toast.success(res.data.message);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => toast.error(err.message));
 	};
 
 	return (
