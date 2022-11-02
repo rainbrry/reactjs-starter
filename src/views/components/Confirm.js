@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Modal({
+export default function Confirm({
 	open,
 	setOpen,
 	modalWitdh,
@@ -8,6 +8,7 @@ export default function Modal({
 	btnStyle,
 	modalTitle,
 	children,
+	confirm,
 }) {
 	const handleModal = () => setOpen(!open);
 
@@ -25,8 +26,19 @@ export default function Modal({
 					>
 						✕
 					</button>
-					<h3 className="text-lg font-bold text-left">{modalTitle}</h3>
+					<h3 className="font-bold text-xl">{modalTitle}</h3>
+
 					{children}
+
+					<div className="modal-action">
+						{confirm}
+						<button
+							onClick={handleModal}
+							className="px-4 py-2 bg-gray-500 hover:bg-gray-700 rounded shadow text-white"
+						>
+							Cancel
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>

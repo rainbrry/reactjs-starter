@@ -7,10 +7,6 @@ import Dashboard from "../views/pages/dashboard";
 import Login from "../views/pages/auth/Login";
 import ChangePassword from "../views/pages/auth/ChangePassword";
 import Users from "../views/pages/users";
-import Products from "../views/pages/products";
-import Purchasings from "../views/pages/purchasings";
-import Sellings from "../views/pages/sellings";
-import Reports from "../views/pages/reports";
 
 export default function Router() {
 	return (
@@ -46,38 +42,6 @@ export default function Router() {
 						element={
 							<Auth>
 								<Users />
-							</Auth>
-						}
-					/>
-					<Route
-						path="products"
-						element={
-							<Auth>
-								<Products />
-							</Auth>
-						}
-					/>
-					<Route
-						path="purchasings"
-						element={
-							<Auth>
-								<Purchasings />
-							</Auth>
-						}
-					/>
-					<Route
-						path="sellings"
-						element={
-							<Auth>
-								<Sellings />
-							</Auth>
-						}
-					/>
-					<Route
-						path="reports"
-						element={
-							<Auth>
-								<Reports />
 							</Auth>
 						}
 					/>

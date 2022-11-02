@@ -1,5 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import AddUser from "./create";
+import DeleteUser from "./delete";
+import EditUser from "./edit";
 
 export default function Users() {
 	const [users, setUsers] = useState([]);
@@ -17,14 +20,12 @@ export default function Users() {
 			<h3 className="text-2xl text-base-500">Users</h3>
 
 			<div className="flex justify-end">
-				<button className="px-8 py-2 bg-cyan-500 rounded-md shadow-md text-white">
-					Add user
-				</button>
+				<AddUser />
 			</div>
 			<div className="py-4">
 				<div className="w-full h-[450px] bg-base-100 rounded shadow-lg">
-					<table className="table-auto w-full text-center">
-						<thead className="text-xs font-semibold uppercase text-gray-400 bg-gray-50 border-b-2 text-center">
+					<table className="table-auto w-full">
+						<thead className="text-xs font-semibold uppercase text-gray-400 bg-gray-50 border-b-2 text-left">
 							<tr>
 								<th className="p-4 whitespace-nowrap">
 									<div className="font-semibold">Name</div>
@@ -40,8 +41,8 @@ export default function Users() {
 								</th>
 							</tr>
 						</thead>
-						<tbody className="text-md divide-y divide-gray-100">
-							{users.map((user, index) => {
+						<tbody className="text-md divide-y text-left divide-gray-100">
+							{users.map((user) => {
 								return (
 									<tr key={user._id} className="border-b-2 border-gray-200">
 										<td className="px-4 py-2 whitespace-nowrap">
@@ -61,12 +62,8 @@ export default function Users() {
 										</td>
 										<td className="p-2 whitespace-nowrap">
 											<div className="text-md text-center flex gap-2 justify-center">
-												<button className="px-2 py-1 bg-green-500 rounded-md shadow-md text-white">
-													Edit
-												</button>
-												<button className="px-2 py-1 bg-red-500 rounded-md shadow-md text-white">
-													Delete
-												</button>
+												<EditUser user={user} />
+												<DeleteUser id={user._id} />
 											</div>
 										</td>
 									</tr>
